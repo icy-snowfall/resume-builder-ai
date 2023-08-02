@@ -1,0 +1,47 @@
+.formbg{
+    background: linear-gradient(135deg, #2FC3C7, #9474CB
+    );
+    height: 100vh;
+    display: flex;
+    .formframe{
+        background: #fff;
+        height: 85vh;
+        border-radius: 25px;
+        width: 65%;
+        margin: auto;
+        text-align: left;
+        overflow: auto;
+        padding: 20px;
+        .headtitle{
+            font-size: 1.5em;
+            font-weight: 500;
+            border-bottom: 0.5px solid gray;
+            margin-bottom: 15px;
+        }
+        .formbox{
+            .accstyle{
+                width: 33%;
+                flex-shrink: 0;
+                font-size: 1.2em;
+                font-weight: 500;
+            }
+            .inputlabel{
+                font-size: 0.9em;
+                margin-bottom: 5px;
+                color: #717781;
+            }
+            .txtbox{
+                width: 70%;
+                .MuiInputBase-root{
+                    input{
+                        height: 3px;
+                    }
+                }
+            }
+            .prvimg{
+                width: 150px;
+                max-height: 100px;
+            }
+        }
+    }
+}
