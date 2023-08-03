@@ -31,7 +31,7 @@
                 color: #717781;
             }
             .txtbox{
-                width: 70%;
+                width: 85%;
                 .MuiInputBase-root{
                     input{
                         height: 3px;
@@ -42,6 +42,59 @@
                 width: 150px;
                 max-height: 100px;
             }
+            .datetime{
+                overflow: hidden;
+                width: 85%;
+                input{
+                    padding: 8px 14px;
+                }
+            }
+            .drpbx{
+                width: 40%;
+                .MuiSelect-select{
+                    padding: 7px 14px;
+                }
+            }
+            .btnsec{
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+                .btnadd{
+
+                }
+                .btndel{
+                    color: red;
+                }
+            }
+            .sbmbtnsec{
+                display: flex;
+                flex-direction: row-reverse;
+                margin: 20px 10px;
+                .btnsubmit{
+                    background: #32a3b4;
+                    color: #fff;
+                }
+            }
         }
     }
+}
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 80%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f100; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #88888848; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }
