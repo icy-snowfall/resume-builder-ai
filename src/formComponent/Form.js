@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './FormStyle.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -7,6 +7,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import MUIRichTextEditor from 'mui-rte'
+import { convertToRaw } from 'draft-js'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -62,19 +63,22 @@ const Form = () => {
   // Add Sec Buttons
 
   const handleAddEduc = () =>{
-    setEduSec([...eduSec, education]);
+    setEduSec([...eduSec, [{ course:'', university:'', course_start:'', 
+    course_end:'', percent:''}]]);
   }
   const handleWorkSec = () =>{
-    setWorkSec([...workSec, workExperience]);
+    setWorkSec([...workSec, [{position:'', org_name:'', work_start:'',
+    work_leave:'', work_summery:'', }]]);
   }
   const handleCertiSec = () =>{
-    setCertiSec([...certiSec, certification]);
+    setCertiSec([...certiSec, [{certi_title:'', org_name:'', course_start:'',
+    course_end:'', course_descr:'',}]]);
   }
   const handleHardSkillSec = () =>{
-    setHardSkillSec([...hardSkillSec, hardSkill]);
+    setHardSkillSec([...hardSkillSec, [{ hard_skill:'', rating:''}]]);
   }
   const handleSoftSkillSec = () =>{
-    setSoftSkillSec([...softSkillSec, softSkill]);
+    setSoftSkillSec([...softSkillSec, [{ soft_skill:'', rating:'',}]]);
   }
   
   //Remove sec button
@@ -111,10 +115,10 @@ const Form = () => {
     value= event.target.value;
     setPersonalDetails({...education, [name]: value})
   }
-  const getSummeryData = (event) =>{
-    name= event.target.name;
-    value= event.target.value;
-    setSummery({...summery, [name]: value})
+  const getSummeryData = event =>{
+    const plainText = event.getCurrentContent().getPlainText() // for plain text
+    const rteContent = convertToRaw(event.getCurrentContent()); // for rte content with text formating
+    rteContent && setSummery(JSON.stringify(rteContent)) // store your rteContent to state
   }
   const getEduData = (event) =>{
     name= event.target.name;
@@ -126,10 +130,21 @@ const Form = () => {
     value= event.target.value;
     setWorkExperience({...workExperience, [name]: value})
   }
+  const getExpDescrData = event => {
+    const plainText = event.getCurrentContent().getPlainText() 
+    const rteContent = convertToRaw(event.getCurrentContent());
+    rteContent && setWorkExperience({...workExperience, 'work_summery': JSON.stringify(rteContent)})
+  }
   const getcertificationData = (event) =>{
     name= event.target.name;
     value= event.target.value;
     setCertification({...certification, [name]: value})
+  }
+  
+  const getCertiDescrData = event => {
+    const plainText = event.getCurrentContent().getPlainText() 
+    const rteContent = convertToRaw(event.getCurrentContent());
+    rteContent && setCertification({...certification, 'course_descr': JSON.stringify(rteContent)})
   }
   const getHskillData = (event) =>{
     name= event.target.name;
@@ -139,8 +154,13 @@ const Form = () => {
   const getSskillData = (event) =>{
     name= event.target.name;
     value= event.target.value;
-    setSoftSkillSec({...softSkill, [name]: value})
+    setSoftSkill({...softSkill, [name]: value})
   }
+
+  useEffect(() => {
+    console.log(hardSkill);
+    console.log(softSkill);
+  })
 
   return (
     <div className='formbg'>
@@ -221,7 +241,7 @@ const Form = () => {
             </AccordionSummary>
             <AccordionDetails>
               <ThemeProvider theme={myTheme}>
-                  <MUIRichTextEditor label="Start typing..." />
+                  <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={getSummeryData} />
               </ThemeProvider>
             </AccordionDetails>
           </Accordion>
@@ -254,7 +274,7 @@ const Form = () => {
                     <Typography className='inputlabel'>From</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DatePicker']}>
-                        <DatePicker className='datetime' views={['month', 'year']} />
+                        <DatePicker value={eduData.course_start} onChange={(newValue) => setEducation({...education, course_start: JSON.stringify(newValue)})} className='datetime' views={['month', 'year']} />
                       </DemoContainer>
                     </LocalizationProvider>
                   </Grid>
@@ -262,7 +282,7 @@ const Form = () => {
                     <Typography className='inputlabel'>To</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DatePicker']}>
-                        <DatePicker className='datetime' views={['month', 'year']} />
+                        <DatePicker value={eduData.course_end} onChange={(newValue) => setEducation({...education, course_end: JSON.stringify(newValue)})} className='datetime' views={['month', 'year']} />
                       </DemoContainer>
                     </LocalizationProvider>
                   </Grid>
@@ -310,7 +330,7 @@ const Form = () => {
                     <Typography className='inputlabel'>From Date</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DatePicker']}>
-                        <DatePicker className='datetime' views={['month', 'year']} />
+                        <DatePicker value={workData.work_start} onChange={(newValue) => setWorkExperience({...workExperience, work_start: JSON.stringify(newValue)})} className='datetime' views={['month', 'year']} />
                       </DemoContainer>
                     </LocalizationProvider>
                   </Grid>
@@ -318,14 +338,14 @@ const Form = () => {
                     <Typography className='inputlabel'>To Date</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DatePicker']}>
-                        <DatePicker className='datetime' views={['month', 'year']} />
+                        <DatePicker value={workData.work_leave} onChange={(newValue) => setWorkExperience({...workExperience, work_leave: JSON.stringify(newValue)})} className='datetime' views={['month', 'year']} />
                       </DemoContainer>
                     </LocalizationProvider>
                   </Grid>
                   <Grid item xs={12}>
                     <Typography className='inputlabel'>Description</Typography>
                     <ThemeProvider theme={myTheme}>
-                        <MUIRichTextEditor label="Start typing..." />
+                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={getExpDescrData} />
                     </ThemeProvider>
                   </Grid>
                   {workSec.length !== 1 && (
@@ -366,7 +386,7 @@ const Form = () => {
                     <Typography className='inputlabel'>From Date</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DatePicker']}>
-                        <DatePicker className='datetime' views={['month', 'year']} />
+                        <DatePicker value={sertiData.course_start} onChange={(newValue) => setCertification({...certification, course_start: JSON.stringify(newValue)})} className='datetime' views={['month', 'year']} />
                       </DemoContainer>
                     </LocalizationProvider>
                   </Grid>
@@ -374,7 +394,7 @@ const Form = () => {
                     <Typography className='inputlabel'>To Date</Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DemoContainer components={['DatePicker']}>
-                        <DatePicker className='datetime' views={['month', 'year']} />
+                        <DatePicker value={sertiData.course_end} onChange={(newValue) => setCertification({...certification, course_end: JSON.stringify(newValue)})} className='datetime' views={['month', 'year']} />
                       </DemoContainer>
                     </LocalizationProvider>
                   </Grid>
@@ -419,8 +439,9 @@ const Form = () => {
                     <Typography className='inputlabel'>Rating </Typography>
                     <FormControl className='drpbx'>
                       <Select
-                        // value={age}
-                        onChange={handleChange}
+                        value={hSkillData.rating}
+                        onChange={getHskillData}
+                        name='rating'
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
                       >
@@ -469,8 +490,9 @@ const Form = () => {
                     <Typography className='inputlabel'>Rating </Typography>
                     <FormControl className='drpbx'>
                       <Select
-                        // value={age}
-                        onChange={handleChange}
+                        value={sSkillData.rating}
+                        onChange={getSskillData}
+                        name='rating'
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
                       >
