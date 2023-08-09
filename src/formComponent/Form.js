@@ -120,10 +120,12 @@ const Form = () => {
     const rteContent = convertToRaw(event.getCurrentContent()); // for rte content with text formating
     rteContent && setSummery(JSON.stringify(rteContent)) // store your rteContent to state
   }
-  const getEduData = (event) =>{
+  const getEduData = (event, index) =>{
     name= event.target.name;
     value= event.target.value;
-    setEducation({...education, [name]: value})
+    const list = [...education]
+    list[index][name] = value
+    setEducation(list)
   }
   const getExperienceData = (event) =>{
     name= event.target.name;
@@ -158,8 +160,7 @@ const Form = () => {
   }
 
   useEffect(() => {
-    console.log(hardSkill);
-    console.log(softSkill);
+    console.log(education);
   })
 
   return (
@@ -260,13 +261,13 @@ const Form = () => {
                 <Grid container key={index}>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Course</Typography>
-                    <TextField value={eduData.course} onChange={getEduData} name='course' className='txtbox' id="standard-basic" variant="outlined" getEduData
+                    <TextField value={eduData.course} onChange={(e)=>getEduData(e, index)} name='course' className='txtbox' id="standard-basic" variant="outlined" 
                       placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>University</Typography>
-                    <TextField value={eduData.university} onChange={getEduData} name='university' className='txtbox' id="standard-basic" variant="outlined" 
+                    <TextField value={eduData.university} onChange={(e)=>getEduData(e, index)} name='university' className='txtbox' id="standard-basic" variant="outlined" 
                       placeholder='University Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
                     </TextField>
                   </Grid>
@@ -288,7 +289,7 @@ const Form = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Percent</Typography>
-                    <TextField value={eduData.percent} onChange={getEduData} name='percent' className='txtbox' id="standard-basic" variant="outlined" 
+                    <TextField value={eduData.percent} onChange={(e)=>getEduData(e, index)} name='percent' className='txtbox' id="standard-basic" variant="outlined" 
                       placeholder='Percent' autoComplete='off' inputProps={{ maxLength: 180 }}>
                     </TextField>
                   </Grid>
