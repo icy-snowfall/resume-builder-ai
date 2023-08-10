@@ -43,11 +43,15 @@
                 max-height: 100px;
             }
             .datetime{
-                overflow: hidden;
+                // overflow: hidden;
+                // width: 85%;
+                // input{
+                //     padding: 8px 14px;
+                // }
                 width: 85%;
-                input{
-                    padding: 8px 14px;
-                }
+                height: 30px;
+                border: 1px solid #c7c7c7;
+                border-radius: 5px;
             }
             .drpbx{
                 width: 40%;
