@@ -326,7 +326,7 @@ const Form = () => {
                   <Grid item xs={12}>
                     <Typography className='inputlabel'>Description</Typography>
                     <ThemeProvider theme={myTheme}>
-                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]}/>
+                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} />
                     </ThemeProvider>
                   </Grid>
                   {workExperience.length !== 1 && (
