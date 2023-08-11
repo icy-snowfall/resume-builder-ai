@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './FormStyle.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -8,12 +8,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import MUIRichTextEditor from 'mui-rte'
 import { convertToRaw } from 'draft-js'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { AddCircleOutlineOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
+import { StateContext } from '../Context';
 
-const Form = () => {
+const Form = ({handlePageTemplate}) => {
+
+  const { nwfile, setNwFile, nwpersonalDetails, setNwPersonalDetails, 
+    nwsummery, setNwSummery, nweducation, setNwEducation , nwworkExperience, setNwWorkExperience, nwcertification, setNwCertification, nwhardSkill, setNwHardSkill,nwsoftSkill, setNwSoftSkill } = useContext(StateContext);
+
   const [expanded, setExpanded] = useState('panel1');
   const [file, setFile] = useState();
   const [personalDetails, setPersonalDetails] = useState({f_name:'', l_name:'', cnt_nmber:'', 
@@ -27,7 +29,20 @@ const Form = () => {
     course_end:'', course_descr:'',}]);
   const [hardSkill, setHardSkill] = useState([{ hard_skill:'', rating:''}]);
   const [softSkill, setSoftSkill] = useState([{ soft_skill:'', rating:'',}]);
-  const [allData, setAllData] = useState();
+
+
+
+  useEffect(() => {
+    setNwFile(file);
+    setNwPersonalDetails(personalDetails);
+    setNwSummery(summery);
+    setNwEducation(education);
+    setNwWorkExperience(workExperience);
+    setNwCertification(certification);
+    setNwHardSkill(hardSkill);
+    setNwSoftSkill(softSkill);
+  })
+
 
   const handleUpload = (e) =>{
     setFile(URL.createObjectURL(e.target.files[0]));
@@ -125,25 +140,12 @@ const Form = () => {
     expDataList[index][event.target.name] = event.target.value
     setWorkExperience(expDataList)
   }
-  const getExpDescrData = event => {
-    const plainText = event.getCurrentContent().getPlainText() 
-    const rteContent = convertToRaw(event.getCurrentContent());
-    // const index = event.target.getAttribute('data-index');
-    // const experience = [...workExperience];
-    // experience[index].work_summery = JSON.stringify(rteContent);
-    rteContent && setWorkExperience({...workExperience, 'work_summery': JSON.stringify(rteContent)})
-  }
   const getcertificationData = (event, index) =>{
     const certiData= [...certification]
     certiData[index][event.target.name]= event.target.value
     setCertification(certiData)
   }
   
-  const getCertiDescrData = event => {
-    const plainText = event.getCurrentContent().getPlainText() 
-    const rteContent = convertToRaw(event.getCurrentContent());
-    rteContent && setCertification({...certification, 'course_descr': JSON.stringify(rteContent)})
-  }
   const getHskillData = (event) =>{
     name= event.target.name;
     value= event.target.value;
@@ -155,9 +157,6 @@ const Form = () => {
     setSoftSkill({...softSkill, [name]: value})
   }
 
-  useEffect(() => {
-    console.log(workExperience);
-  })
 
   return (
     <div className='formbg'>
@@ -326,7 +325,17 @@ const Form = () => {
                   <Grid item xs={12}>
                     <Typography className='inputlabel'>Description</Typography>
                     <ThemeProvider theme={myTheme}>
-                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} />
+                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={(event) => {
+                            const plainText = event.getCurrentContent().getPlainText();
+                            const rteContent = convertToRaw(event.getCurrentContent());
+                            const newWorkExperience = workExperience.map((workData, i) => {
+                                if (i === index) {
+                                    workData.work_summery = JSON.stringify(rteContent);
+                                }
+                                return workData;
+                            });
+                            setWorkExperience(newWorkExperience);
+                            }} />
                     </ThemeProvider>
                   </Grid>
                   {workExperience.length !== 1 && (
@@ -374,7 +383,17 @@ const Form = () => {
                   <Grid item xs={12}>
                     <Typography className='inputlabel'>Description</Typography>
                     <ThemeProvider theme={myTheme}>
-                        <MUIRichTextEditor label="Start typing..."  controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} />
+                        <MUIRichTextEditor label="Start typing..."  controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]}  onChange={(event) => {
+                            const plainText = event.getCurrentContent().getPlainText();
+                            const rteContent = convertToRaw(event.getCurrentContent());
+                            const newcertification = certification.map((certiData, i) => {
+                                if (i === index) {
+                                    certiData.course_descr = JSON.stringify(rteContent);
+                                }
+                                return certiData;
+                            });
+                            setCertification(newcertification);
+                            }} />
                     </ThemeProvider>
                   </Grid>
                   {certification.length !== 1 && (
@@ -494,7 +513,7 @@ const Form = () => {
             </AccordionDetails>
           </Accordion>
           <div className='sbmbtnsec'>
-            <Button className='btnsubmit'>Submit</Button>
+            <Button onClick={handlePageTemplate} className='btnsubmit'>Submit</Button>
           </div>
         </Box>
       </Box>

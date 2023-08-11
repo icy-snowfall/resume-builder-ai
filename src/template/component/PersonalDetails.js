@@ -4,7 +4,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Typography } from '@mui/material';
-const PersonalDetails = () => {
+const PersonalDetails = ({p_data}) => {
   return (
     <>
     <div style={{textAlign:'left', margin:'10px auto', padding:'0 10px'}}>

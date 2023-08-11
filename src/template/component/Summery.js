@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
-const Summery = () => {
+const Summery = ({Summery}) => {
   return (
     <div style={{ textAlign: 'left', padding: '10px'}}>
         <Typography sx={{    fontSize: '14px', borderBottom: '0.5px solid grey', marginBottom: '5px',
