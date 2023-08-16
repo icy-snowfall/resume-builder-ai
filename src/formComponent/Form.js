@@ -13,8 +13,7 @@ import { StateContext } from '../Context';
 
 const Form = ({handlePageTemplate}) => {
 
-  const { nwfile, setNwFile, nwpersonalDetails, setNwPersonalDetails, 
-    nwsummery, setNwSummery, nweducation, setNwEducation , nwworkExperience, setNwWorkExperience, nwcertification, setNwCertification, nwhardSkill, setNwHardSkill,nwsoftSkill, setNwSoftSkill } = useContext(StateContext);
+  const { setNwFile, setNwPersonalDetails, setNwSummery, setNwEducation, setNwWorkExperience, setNwCertification, setNwHardSkill, setNwSoftSkill } = useContext(StateContext);
 
   const [expanded, setExpanded] = useState('panel1');
   const [file, setFile] = useState();
@@ -30,9 +29,12 @@ const Form = ({handlePageTemplate}) => {
   const [hardSkill, setHardSkill] = useState([{ skill:'', rating:''}]);
   const [softSkill, setSoftSkill] = useState([{ skill:'', rating:'',}]);
 
+  const [allData, setAllData] = useState();
+
 
 
   useEffect(() => {
+    setAllData([{file, personalDetails, summery, education, workExperience, certification, hardSkill, softSkill}])
     setNwFile(file);
     setNwPersonalDetails(personalDetails);
     setNwSummery(summery);
@@ -180,25 +182,25 @@ const Form = ({handlePageTemplate}) => {
                 <Grid item xs={12} sm={6}>
                   <Typography className='inputlabel'>First Name</Typography>
                   <TextField value={personalDetails.f_name} onChange={getpersonalData} name='f_name' className='txtbox' id="standard-basic" variant="outlined" 
-                    placeholder='First Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                    placeholder='First Name' autoComplete='off' inputProps={{ maxLength: 70 }}>
                   </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography className='inputlabel'>Last Name</Typography>
                   <TextField value={personalDetails.l_name} onChange={getpersonalData} name='l_name' className='txtbox' id="standard-basic" variant="outlined" 
-                    placeholder='Last Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                    placeholder='Last Name' autoComplete='off' inputProps={{ maxLength: 70 }}>
                   </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography className='inputlabel'>Contact Number</Typography>
                   <TextField value={personalDetails.cnt_nmber} onChange={getpersonalData} name='cnt_nmber' className='txtbox' id="standard-basic" variant="outlined" 
-                    placeholder='Contact Number' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                    placeholder='Contact Number' autoComplete='off' inputProps={{ maxLength: 10 }}>
                   </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography className='inputlabel'>Email ID</Typography>
                   <TextField value={personalDetails.email_id} onChange={getpersonalData} name='email_id' className='txtbox' id="standard-basic" variant="outlined" 
-                    placeholder='Email ID' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                    placeholder='Email ID' autoComplete='off' inputProps={{ maxLength: 70 }}>
                   </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -210,7 +212,7 @@ const Form = ({handlePageTemplate}) => {
                 <Grid item xs={12} sm={6}>
                   <Typography className='inputlabel'>LinkedIn ID</Typography>
                   <TextField value={personalDetails.lnkin_id} onChange={getpersonalData} name='lnkin_id' className='txtbox' id="standard-basic" variant="outlined" 
-                    placeholder='LinkedIn ID' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                    placeholder='LinkedIn ID' autoComplete='off' inputProps={{ maxLength: 70 }}>
                   </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -237,7 +239,7 @@ const Form = ({handlePageTemplate}) => {
             </AccordionSummary>
             <AccordionDetails>
               <ThemeProvider theme={myTheme}>
-                  <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={getSummeryData} />
+                  <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={getSummeryData} maxLength={250} />
               </ThemeProvider>
               {/* <Editor value={summery} onChange={getSummeryData} /> */}
             </AccordionDetails>
