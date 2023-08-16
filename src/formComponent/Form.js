@@ -28,8 +28,8 @@ const Form = ({handlePageTemplate}) => {
     work_leave:'', work_summery:''}]);
   const [certification, setCertification] = useState([{certi_title:'', org_name:'', course_start:'',
     course_end:'', course_descr:'',}]);
-  const [hardSkill, setHardSkill] = useState([{ hard_skill:'', rating:''}]);
-  const [softSkill, setSoftSkill] = useState([{ soft_skill:'', rating:'',}]);
+  const [hardSkill, setHardSkill] = useState([{ skill:'', rating:''}]);
+  const [softSkill, setSoftSkill] = useState([{ skill:'', rating:'',}]);
 
 
 
@@ -86,10 +86,10 @@ const Form = ({handlePageTemplate}) => {
     course_end:'', course_descr:'',}]);
   }
   const handleHardSkillSec = () =>{
-    setHardSkill([...hardSkill, { hard_skill:'', rating:''}]);
+    setHardSkill([...hardSkill, { skill:'', rating:''}]);
   }
   const handleSoftSkillSec = () =>{
-    setSoftSkill([...softSkill, { soft_skill:'', rating:'',}]);
+    setSoftSkill([...softSkill, { skill:'', rating:'',}]);
   }
   
   //Remove sec button
@@ -124,7 +124,7 @@ const Form = ({handlePageTemplate}) => {
   const getpersonalData = (event) =>{
     name= event.target.name;
     value= event.target.value;
-    setPersonalDetails({...education, [name]: value})
+    setPersonalDetails({...personalDetails, [name]: value})
   }
   const getSummeryData = event =>{
     const plainText = event.getCurrentContent().getPlainText() // for plain text
@@ -147,15 +147,15 @@ const Form = ({handlePageTemplate}) => {
     setCertification(certiData)
   }
   
-  const getHskillData = (event) =>{
-    name= event.target.name;
-    value= event.target.value;
-    setHardSkill({...hardSkill, [name]: value})
+  const getHskillData = (event, index) =>{
+    const hrskillData = [...hardSkill]
+    hrskillData[index][event.target.name]= event.target.value
+    setHardSkill(hrskillData)
   }
-  const getSskillData = (event) =>{
-    name= event.target.name;
-    value= event.target.value;
-    setSoftSkill({...softSkill, [name]: value})
+  const getSskillData = (event, index) =>{
+    const sfskillData = [...hardSkill]
+    sfskillData[index][event.target.name]= event.target.value
+    setSoftSkill(sfskillData)
   }
 
 
@@ -425,7 +425,7 @@ const Form = ({handlePageTemplate}) => {
                 <Grid container key={index}>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Skill</Typography>
-                    <TextField value={hSkillData.hard_skill} onChange={(e) => getHskillData(e, index)} name='hard_skill' className='txtbox' id="standard-basic" variant="outlined" 
+                    <TextField value={hSkillData.skill} onChange={(e) => getHskillData(e, index)} name='skill' className='txtbox' id="standard-basic" variant="outlined" 
                       placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
                     </TextField>
                   </Grid>
@@ -476,7 +476,7 @@ const Form = ({handlePageTemplate}) => {
                 <Grid container key={index}>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Skill</Typography>
-                    <TextField value={sSkillData.soft_skill} onChange={(e) => getSskillData(e, index)} name='soft_skill' className='txtbox' id="standard-basic" variant="outlined" 
+                    <TextField value={sSkillData.skill} onChange={(e) => getSskillData(e, index)} name='skill' className='txtbox' id="standard-basic" variant="outlined" 
                       placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
                     </TextField>
                   </Grid>

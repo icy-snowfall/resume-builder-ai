@@ -13,7 +13,7 @@ import { hard_skill, soft_skill, edu_details } from '../DataFile'
 import { StateContext } from '../Context'
 const AnnalectResume = () => {
   const { nwfile, nwpersonalDetails, nwsummery, nweducation, nwworkExperience, nwcertification, nwhardSkill, nwsoftSkill} = useContext(StateContext);
-
+  
   return (
     <>
     <Grid container id='header' sx={{width: '650px', margin: 'auto',flexDirection: 'row-reverse'}}>
@@ -21,10 +21,10 @@ const AnnalectResume = () => {
     </Grid>
     <Grid container sx={{width: '650px', margin: 'auto'}}>
         <Grid item sm={4} sx={{background: '#57eaf124' }}>
-          <PersonalInfo p_data={nwpersonalDetails} pasprt_img={nwfile} />
+          <PersonalInfo p_data={nwpersonalDetails} position={nwworkExperience[0].position} pasprt_img={nwfile} />
           <PersonalDetails p_data={nwpersonalDetails}/>
-          <Skill skills={hard_skill} />
-          <Skill skills={soft_skill} />
+          <Skill skills={nwhardSkill} title={'Hard Skills'} />
+          <Skill skills={nwsoftSkill} title={'Soft Skills'} />
           <Education edu_details={nweducation} />
         </Grid>
         <Grid item sm={8}>

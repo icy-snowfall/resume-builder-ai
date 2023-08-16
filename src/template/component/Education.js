@@ -8,9 +8,9 @@ const Education = ({edu_details}) => {
         fontWeight: '500'}}>Education</Typography>
         {edu_details.map((data, i) => (
             <div key={i}>
-                <Typography sx={{fontSize:'11px'}}>{data.from_yr} to {data.to_yr}</Typography>
-                <Typography sx={{fontSize:'11px', fontWeight:'500'}}>{data.degree}</Typography>
-                <Typography sx={{fontSize:'11px'}}>{data.univercity}</Typography>
+                <Typography sx={{fontSize:'11px'}}>{data.course_start} to {data.course_end}</Typography>
+                <Typography sx={{fontSize:'12px', fontWeight:'600'}}>{data.course}</Typography>
+                <Typography sx={{fontSize:'11px'}}>{data.university}</Typography>
             </div>
         ))}
     </div>

@@ -13,8 +13,8 @@ const StateProvider = ({ children }) => {
         work_leave:'', work_summery:''}]);
       const [nwcertification, setNwCertification] = useState([{certi_title:'', org_name:'', course_start:'',
         course_end:'', course_descr:'',}]);
-      const [nwhardSkill, setNwHardSkill] = useState([{ hard_skill:'', rating:''}]);
-      const [nwsoftSkill, setNwSoftSkill] = useState([{ soft_skill:'', rating:'',}]);
+      const [nwhardSkill, setNwHardSkill] = useState([{ skill:'', rating:''}]);
+      const [nwsoftSkill, setNwSoftSkill] = useState([{ skill:'', rating:'',}]);
 
 
     return (
