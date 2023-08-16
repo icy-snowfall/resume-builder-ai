@@ -7,7 +7,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import MUIRichTextEditor from 'mui-rte'
-import {Editor} from 'mui-rte'
 import { convertToRaw } from 'draft-js'
 import { AddCircleOutlineOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
 import { StateContext } from '../Context';
