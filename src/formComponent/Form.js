@@ -7,6 +7,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import MUIRichTextEditor from 'mui-rte'
+import {Editor} from 'mui-rte'
 import { convertToRaw } from 'draft-js'
 import { AddCircleOutlineOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
 import { StateContext } from '../Context';
@@ -239,6 +240,7 @@ const Form = ({handlePageTemplate}) => {
               <ThemeProvider theme={myTheme}>
                   <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={getSummeryData} />
               </ThemeProvider>
+              {/* <Editor value={summery} onChange={getSummeryData} /> */}
             </AccordionDetails>
           </Accordion>
           <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>

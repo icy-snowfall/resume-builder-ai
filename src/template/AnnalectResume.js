@@ -28,7 +28,7 @@ const AnnalectResume = () => {
           <Education edu_details={nweducation} />
         </Grid>
         <Grid item sm={8}>
-          <Summery Summery={nwsummery} />
+          <Summery summery={nwsummery} />
           <WorkExperience exp_data={nwworkExperience} />
           <Certification certi_data={nwcertification} />
         </Grid>
