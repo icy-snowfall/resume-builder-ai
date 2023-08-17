@@ -193,8 +193,7 @@ const Form = ({handlePageTemplate}) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Typography className='inputlabel'>Contact Number</Typography>
-                  <TextField value={personalDetails.cnt_nmber} onChange={getpersonalData} name='cnt_nmber' className='txtbox' id="standard-basic" variant="outlined" 
-                    placeholder='Contact Number' autoComplete='off' inputProps={{ maxLength: 10 }}>
+                  <TextField value={personalDetails.cnt_nmber} onChange={getpersonalData} name='cnt_nmber' type='number' className='txtbox' id="standard-basic" variant="outlined" placeholder='Contact Number' autoComplete='off' inputProps={{ maxLength: 10 }}>
                   </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -279,8 +278,7 @@ const Form = ({handlePageTemplate}) => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Percent</Typography>
-                    <TextField value={eduData.percent} onChange={(e)=>getEduData(e, index)} name='percent' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='Percent' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                    <TextField value={eduData.percent} onChange={(e)=>getEduData(e, index)} name='percent' type="number" id="standard-basic" className='txtbox' variant="outlined" placeholder='Percent' autoComplete='off' inputProps={{ min:'0', max:'2' }}>
                     </TextField>
                   </Grid>
                   {education.length !== 1 && (<Grid className='btnsec' item xs={6}>
@@ -308,13 +306,13 @@ const Form = ({handlePageTemplate}) => {
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Position</Typography>
                     <TextField value={workData.position} onChange={(e) => getExperienceData(e, index)} name='position' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='Position' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                      placeholder='Position' autoComplete='off' inputProps={{ maxLength: 50 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Organization Name </Typography>
                     <TextField value={workData.org_name} onChange={(e) => getExperienceData(e, index)} name='org_name' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='Organization Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                      placeholder='Organization Name' autoComplete='off' inputProps={{ maxLength: 70 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -328,7 +326,7 @@ const Form = ({handlePageTemplate}) => {
                   <Grid item xs={12}>
                     <Typography className='inputlabel'>Description</Typography>
                     <ThemeProvider theme={myTheme}>
-                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} onChange={(event) => {
+                        <MUIRichTextEditor label="Start typing..." controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]}  maxLength={400} onChange={(event) => {
                             const plainText = event.getCurrentContent().getPlainText();
                             const rteContent = convertToRaw(event.getCurrentContent());
                             const newWorkExperience = workExperience.map((workData, i) => {
@@ -366,13 +364,13 @@ const Form = ({handlePageTemplate}) => {
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Title</Typography>
                     <TextField value={certiData.certi_title} onChange={(e) => getcertificationData(e, index)} name='certi_title' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                      placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 70 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>organization Name</Typography>
                     <TextField value={certiData.org_name} onChange={(e) => getcertificationData(e, index)} name='org_name' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='University Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                      placeholder='University Name' autoComplete='off' inputProps={{ maxLength: 70 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -386,7 +384,7 @@ const Form = ({handlePageTemplate}) => {
                   <Grid item xs={12}>
                     <Typography className='inputlabel'>Description</Typography>
                     <ThemeProvider theme={myTheme}>
-                        <MUIRichTextEditor label="Start typing..."  controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]}  onChange={(event) => {
+                        <MUIRichTextEditor label="Start typing..."  controls={["bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "numberList", "bulletList", "clear" ]} maxLength={250}  onChange={(event) => {
                             const plainText = event.getCurrentContent().getPlainText();
                             const rteContent = convertToRaw(event.getCurrentContent());
                             const newcertification = certification.map((certiData, i) => {
@@ -427,7 +425,7 @@ const Form = ({handlePageTemplate}) => {
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Skill</Typography>
                     <TextField value={hSkillData.skill} onChange={(e) => getHskillData(e, index)} name='skill' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                      placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 50 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={3}>
@@ -478,7 +476,7 @@ const Form = ({handlePageTemplate}) => {
                   <Grid item xs={12} sm={6}>
                     <Typography className='inputlabel'>Skill</Typography>
                     <TextField value={sSkillData.skill} onChange={(e) => getSskillData(e, index)} name='skill' className='txtbox' id="standard-basic" variant="outlined" 
-                      placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 180 }}>
+                      placeholder='Course Name' autoComplete='off' inputProps={{ maxLength: 50 }}>
                     </TextField>
                   </Grid>
                   <Grid item xs={12} sm={3}>
