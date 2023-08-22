@@ -1,0 +1,46 @@
+.btnSec{
+        margin: 10px;
+        width: 75%;
+        text-align: right;
+    .butnClass{
+        background: #60cdd1;
+        border: none;
+        padding: 5px 10px;
+        color: #fff;
+        border-radius: 5px;
+    }
+}
+.template{
+    width: 540px;
+    margin: auto;
+    text-align: left;
+    .logoImg{
+        height: 7vh;
+        .imgSize{
+            width: 25%;
+            opacity: 80%;
+        }
+    }
+    .para_text{
+        font-size: 11px;
+    }
+    .tlt_text{
+        font-size: 12px;
+        border-bottom: '0.5px solid grey';
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    .prs_info{
+        background: #a392b5; 
+        border-radius: 0 0 25% 25%;
+        color:#fff;
+        padding: 10px 0;
+        height: 110px;
+        text-align: center;
+        .psphoto{
+            width: 35%;
+            border-radius: 50%;
+            height: 77px;
+        }
+    }
+}

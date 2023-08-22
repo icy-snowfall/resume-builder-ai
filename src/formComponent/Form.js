@@ -154,10 +154,41 @@ const Form = ({handlePageTemplate}) => {
     setHardSkill(hrskillData)
   }
   const getSskillData = (event, index) =>{
-    const sfskillData = [...hardSkill]
+    const sfskillData = [...softSkill]
     sfskillData[index][event.target.name]= event.target.value
     setSoftSkill(sfskillData)
   }
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    localStorage.setItem('all_data', JSON.stringify(allData));
+
+    const isPersonalDetailsValid = Object.values(personalDetails).every((value) => value !== '');
+    const isFileValid = Object.values(file).every((value) => value !== '');
+    const isSummeryValid = Object.values(summery).every((value) => value !== '');
+    const isEducationValid = Object.values(education).every((value) => value !== '');
+    const isWorkExperiencealid = Object.values(workExperience).every((value) => value !== '');
+    const isCertificationValid = Object.values(certification).every((value) => value !== '');
+    const isHardSkillValid = Object.values(hardSkill).every((value) => value !== '');
+    const isSoftSkillValid = Object.values(softSkill).every((value) => value !== '');
+        if (!isPersonalDetailsValid || !isFileValid || !isSummeryValid || !isEducationValid || !isWorkExperiencealid || !isCertificationValid || !isHardSkillValid || !isSoftSkillValid) {
+            alert('Please fill all the required fields.');
+            return;
+        }
+    
+    // try {
+    //   const newItem = {
+    //     data: allData,
+    //   };
+
+    //   await axios.post('http://localhost:5000/items', newItem);
+    //   alert('Item created successfully!');
+    // } catch (error) {
+    // //   console.error('Error creating item:', error);
+    // }
+    handlePageTemplate();
+  };
 
 
   return (
@@ -514,7 +545,7 @@ const Form = ({handlePageTemplate}) => {
             </AccordionDetails>
           </Accordion>
           <div className='sbmbtnsec'>
-            <Button onClick={handlePageTemplate} className='btnsubmit'>Submit</Button>
+            <Button onClick={handleSubmit} className='btnsubmit'>Submit</Button>
           </div>
         </Box>
       </Box>
